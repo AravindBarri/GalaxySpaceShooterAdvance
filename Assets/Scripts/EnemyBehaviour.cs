@@ -18,10 +18,9 @@ public class EnemyBehaviour : MonoBehaviour
         //move down 
         transform.Translate(Vector3.down * Time.deltaTime * enemySpeed);
         //when the enemy off the screen on the bottom he needs to respawn with new random x position
-        if (this.transform.position.y < -6.0f || this.gameObject.active.Equals(false))
+        if (this.transform.position.y < -6.0f)
         {
-            this.transform.position = new Vector3(Random.Range(-8.0f, 8.0f), 6.0f, 0);
-            this.gameObject.SetActive(true);
+            Destroy(this.gameObject);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -50,8 +49,6 @@ public class EnemyBehaviour : MonoBehaviour
     }
     void destroyEnemy()
     {
-        this.gameObject.SetActive(false);
-        this.transform.position = new Vector3(Random.Range(-8.0f, 8.0f), 6.0f, 0);
-        this.gameObject.SetActive(true);
+        Destroy(this.gameObject);
     }
 }
