@@ -8,7 +8,7 @@ public class GameManagerScript : MonoBehaviour
     //if the game is over then press space to respawn the player
     //else the game over is in inactive
 
-    public bool GameOver = false;
+    public bool GameOver = true;
     public GameObject player;
     public UIManager Uiobject;
 
@@ -27,12 +27,12 @@ public class GameManagerScript : MonoBehaviour
                 //gameover screen to be inactive and player has to respawn
                 Instantiate(player, Vector3.zero, Quaternion.identity);
                 GameOver = false;
-                Uiobject.HideGameOverScreen();
+                Uiobject.ShowGameOverScreen();
             }
         }
         else
         {
-            Uiobject.ShowGameOverScreen();
+            Uiobject.HideGameOverScreen();
         }
     }
 }

@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
 
     UIManager UIObject;
     GameManagerScript gameManagerobject;
+    SpawnManager spawnManagerObject;
 
     public int playerLives = 3;
     // Start is called before the first frame update
@@ -22,11 +23,16 @@ public class Player : MonoBehaviour
     {
         transform.position = new Vector3(0, 0, 0);
         UIObject = GameObject.Find("Canvas").GetComponent<UIManager>();
+        spawnManagerObject = GameObject.Find("SpawnManagerObject").GetComponent<SpawnManager>();
         if(UIObject!= null)
         {
             UIObject.UpdateLives(playerLives);
         }
         gameManagerobject = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+        if(spawnManagerObject != null)
+        {
+            spawnManagerObject.callCoroutines();
+        }
     }
 
     // Update is called once per frame
