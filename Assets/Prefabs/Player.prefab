@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!95 &474425824
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2598225884318620596}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 222d39f9f493d7340a526198bbcfc359, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2598225885665244956
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,6 +32,7 @@ GameObject:
   - component: {fileID: 2598225885665244945}
   - component: {fileID: 2598225885665244947}
   - component: {fileID: 1275282806}
+  - component: {fileID: 2672254662539608648}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -153,17 +173,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.2501674, y: 4.6176577}
   m_EdgeRadius: 0
---- !u!95 &474425824
+--- !u!95 &2672254662539608648
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2598225884318620596}
+  m_GameObject: {fileID: 2598225885665244956}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 222d39f9f493d7340a526198bbcfc359, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4dad00c3757d79e42bc5deae652704bc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

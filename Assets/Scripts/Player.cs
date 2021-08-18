@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     [SerializeField] float canfire;
     [SerializeField] float fireRate = 0.25f;
 
+    Animator anim;
+
     UIManager UIObject;
     GameManagerScript gameManagerobject;
     SpawnManager spawnManagerObject;
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        anim = this.GetComponent<Animator>();
         transform.position = new Vector3(0, 0, 0);
         UIObject = GameObject.Find("Canvas").GetComponent<UIManager>();
         spawnManagerObject = GameObject.Find("SpawnManagerObject").GetComponent<SpawnManager>();
@@ -111,10 +114,15 @@ public class Player : MonoBehaviour
         UIObject.UpdateLives(playerLives);
         if (playerLives<1)
         {
-            gameObject.SetActive(false);
             gameManagerobject.GameOver = true;
             UIObject.ShowGameOverScreen();
+            anim.SetTrigger("PlayerExplosion");
+            Invoke("PlayerInActive", 4f);
         }
+    }
+    void PlayerInActive()
+    {
+        gameObject.SetActive(false);
     }
     public void TripleShotPowerUp()
     {
