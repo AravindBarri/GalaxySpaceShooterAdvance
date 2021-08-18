@@ -6,10 +6,12 @@ public class EnemyBehaviour : MonoBehaviour
 {
     public float enemySpeed; //enemy speed
     Animator anim;
+    UIManager UIObject;
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+        UIObject = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
 
     // Update is called once per frame
@@ -33,11 +35,13 @@ public class EnemyBehaviour : MonoBehaviour
             }
             anim.SetTrigger("Explode");
             Invoke("destroyEnemy", 2);
+            UIObject.UpdateScore();
             Destroy(collision.gameObject);
         }
         else if (collision.tag == "Player")
         {
             //need to damage player
+            print("collision");
             Player player = collision.GetComponent<Player>();
             if (player != null)
             {

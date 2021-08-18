@@ -13,11 +13,20 @@ public class Player : MonoBehaviour
     [SerializeField] float canfire;
     [SerializeField] float fireRate = 0.25f;
 
-    public int playerLives = 5;
+    UIManager UIObject;
+    GameManagerScript gameManagerobject;
+
+    public int playerLives = 3;
     // Start is called before the first frame update
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
+        UIObject = GameObject.Find("Canvas").GetComponent<UIManager>();
+        if(UIObject!= null)
+        {
+            UIObject.UpdateLives(playerLives);
+        }
+        gameManagerobject = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
     }
 
     // Update is called once per frame
@@ -93,9 +102,12 @@ public class Player : MonoBehaviour
         //subtract 1 live from player lives
         //if live less than 1 destroy player
         playerLives--;
-        if(playerLives<1)
+        UIObject.UpdateLives(playerLives);
+        if (playerLives<1)
         {
             gameObject.SetActive(false);
+            gameManagerobject.GameOver = true;
+            UIObject.ShowGameOverScreen();
         }
     }
     public void TripleShotPowerUp()
