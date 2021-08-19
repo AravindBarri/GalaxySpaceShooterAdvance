@@ -31,7 +31,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (collision.transform.parent != null)
             {
-                Destroy(transform.parent.gameObject);
+                Destroy(gameObject);
             }
             anim.SetTrigger("Explode");
             Invoke("destroyEnemy", 2);
@@ -41,11 +41,19 @@ public class EnemyBehaviour : MonoBehaviour
         else if (collision.tag == "Player")
         {
             //need to damage player
-            print("collision");
             Player player = collision.GetComponent<Player>();
             if (player != null)
             {
-                player.Damage();
+                if (player.isShieldActive)
+                {
+                    player.isShieldActive = false;
+                    player.shieldGameObject.SetActive(false);
+                }
+                else
+                {
+                    player.Damage();
+                }
+                
             }
         }
 

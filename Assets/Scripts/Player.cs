@@ -22,6 +22,12 @@ public class Player : MonoBehaviour
     public int playerLives = 3;
     public bool isShieldActive = false;
     public GameObject shieldGameObject;
+
+    private AudioSource audioSource;
+    public AudioClip[] audioclips;
+
+    public GameObject[] EngineFailures;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +35,7 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(0, 0, 0);
         UIObject = GameObject.Find("Canvas").GetComponent<UIManager>();
         spawnManagerObject = GameObject.Find("SpawnManagerObject").GetComponent<SpawnManager>();
+        audioSource = GameObject.Find("SoundManager").GetComponent<AudioSource>();
         if(UIObject!= null)
         {
             UIObject.UpdateLives(playerLives);
@@ -43,12 +50,22 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
 
         //if speed power up enabled move 2x faster
         //else normal speed
-
+        if(horizontal == -1)
+        {
+            anim.SetTrigger("TurnLeft");
+        }else if(horizontal == 1)
+        {
+            anim.SetTrigger("TurnRight");
+        }
+        else if(horizontal == 0)
+        {
+            anim.SetTrigger("Idle");
+        }
         if (isSpeedPowerUpActive == true)
         {
             transform.Translate(Vector3.right * Time.deltaTime * moveSpeed * 2.0f * horizontal);
@@ -95,10 +112,15 @@ public class Player : MonoBehaviour
     {
         if (Time.time > canfire)
         {
+            audioSource.clip = audioclips[1];
+            audioSource.Play();
+            audioSource.loop = false;
+            
             //if tripleshoot is true shoot three lasers, if not one laser
             if(canTripleShoot == true)
             {
                 Instantiate(tripleLaserPrefab, transform.position+ new Vector3(-1f, 1f, 0), Quaternion.identity); // tripleLaser Powerup
+                
             }
             else
             {
@@ -107,6 +129,7 @@ public class Player : MonoBehaviour
             
             canfire = Time.time + fireRate;
         }
+        
     }
     public void Damage()
     {
@@ -114,6 +137,7 @@ public class Player : MonoBehaviour
         //if live less than 1 destroy player
         playerLives--;
         UIObject.UpdateLives(playerLives);
+        EngineFailures[playerLives].SetActive(true);
         if (playerLives<1)
         {
             gameManagerobject.GameOver = true;
@@ -125,6 +149,7 @@ public class Player : MonoBehaviour
     void PlayerInActive()
     {
         gameObject.SetActive(false);
+        Destroy(gameObject);
     }
     public void TripleShotPowerUp()
     {
