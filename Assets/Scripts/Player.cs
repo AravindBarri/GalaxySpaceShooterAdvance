@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     SpawnManager spawnManagerObject;
 
     public int playerLives = 3;
+    public bool isShieldActive = false;
+    public GameObject shieldGameObject;
     // Start is called before the first frame update
     void Start()
     {
@@ -129,7 +131,12 @@ public class Player : MonoBehaviour
         canTripleShoot = true;
         StartCoroutine(TripleShotPowerdown());
     }
-    
+    public void EnableShieldPowerUp()
+    {
+        isShieldActive = true;
+        shieldGameObject.SetActive(true);
+    }
+
     //method to enable SPEED power up  and power down
     public void SpeedPowerUpON()
     {
